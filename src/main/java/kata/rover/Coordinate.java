@@ -1,19 +1,23 @@
 package kata.rover;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.function.Consumer;
 
 public class Coordinate {
+    private Integer x, y;
+
     public Coordinate(Integer x, Integer y) {
         super();
+        this.x = x;
+        this.y = y;
     }
 
-    public Coordinate giveMeX(Consumer<Integer> x) {
-        throw new NotImplementedException();
+    public Coordinate giveMeX(Consumer<Integer> consumer) {
+        consumer.accept(this.x);
+        return this;
     }
 
-    public Coordinate giveMeY(Consumer<Integer> y) {
-        throw new NotImplementedException();
+    public Coordinate giveMeY(Consumer<Integer> consumer) {
+        consumer.accept(this.y);
+        return this;
     }
 }
