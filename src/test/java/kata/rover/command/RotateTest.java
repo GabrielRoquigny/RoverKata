@@ -1,6 +1,5 @@
 package kata.rover.command;
 
-import kata.rover.Coordinate;
 import kata.rover.Direction;
 import org.assertj.core.api.Condition;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
@@ -35,24 +34,6 @@ public class RotateTest {
 
         // Then
         verify(consumer).accept(direction2);
-        verifyNoMoreInteractions(consumer);
-
-        assertThat(result).is(CloneCondition.clone(orientation));
-    }
-
-    @Test
-    public void testModifyCoordinate() {
-        // Given
-        final Coordinate coordinate = mock(Coordinate.class);
-        final Orientation orientation = mock(Orientation.class);
-        final Consumer<Coordinate> consumer = mock(Consumer.class);
-        final Rotate underTest = new Rotate(orientation);
-
-        // When
-        final Rotate result = underTest.modifyCoordinate(consumer, coordinate);
-
-        // Then
-        verifyNoMoreInteractions(orientation);
         verifyNoMoreInteractions(consumer);
 
         assertThat(result).is(CloneCondition.clone(orientation));

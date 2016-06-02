@@ -14,7 +14,9 @@ public interface Command {
      *
      * @return himself or equivalent.
      */
-    Command modifyDirection(Consumer<Direction> directionConsumer, Direction direction);
+    default Command modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
+        return this;
+    }
 
     /**
      * Give the new coordinate after executing command.
@@ -24,5 +26,7 @@ public interface Command {
      *
      * @return himself or equivalent.
      */
-    Command modifyCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate);
+    default Command modifyCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
+        return this;
+    }
 }
