@@ -26,7 +26,7 @@ public class Rotate implements Command {
      * @return himself or equivalent.
      */
     @Override
-    public Command modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
+    public Rotate modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
         throw new NotImplementedException();
     }
 
@@ -39,7 +39,7 @@ public class Rotate implements Command {
      * @return himself or equivalent.
      */
     @Override
-    public Command modifyCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
+    public Rotate modifyCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
         throw new NotImplementedException();
     }
 }
