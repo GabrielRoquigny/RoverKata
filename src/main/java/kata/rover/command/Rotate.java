@@ -2,11 +2,12 @@ package kata.rover.command;
 
 import kata.rover.Coordinate;
 import kata.rover.Direction;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.function.Consumer;
 
 public class Rotate implements Command {
+
+    private final Orientation orientation;
 
     /**
      * Constructor.
@@ -15,6 +16,7 @@ public class Rotate implements Command {
      */
     public Rotate(Orientation orientation) {
         super();
+        this.orientation = orientation;
     }
 
     /**
@@ -27,7 +29,8 @@ public class Rotate implements Command {
      */
     @Override
     public Rotate modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
-        throw new NotImplementedException();
+        orientation.giveNextDirection(directionConsumer, direction);
+        return this;
     }
 
     /**
@@ -40,6 +43,6 @@ public class Rotate implements Command {
      */
     @Override
     public Rotate modifyCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
-        throw new NotImplementedException();
+        return this;
     }
 }
