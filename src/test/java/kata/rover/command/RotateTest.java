@@ -1,12 +1,13 @@
 package kata.rover.command;
 
+import kata.rover.CanChangeDirection;
+import kata.rover.Coordinate;
 import kata.rover.Direction;
+import kata.rover.Rover;
 import org.assertj.core.api.Condition;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.testng.annotations.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -19,21 +20,22 @@ public class RotateTest {
         // Given
         final Direction direction1 = mock(Direction.class);
         final Direction direction2 = mock(Direction.class);
+        final Coordinate coordinate = mock(Coordinate.class);
         final Orientation orientation = new OrientationMock(direction2) {
             @Override
-            public Orientation giveNextDirection(Consumer<Direction> directionConsumer, Direction direction) {
-                directionConsumer.accept(this.direction);
+            public Orientation giveNextDirection(CanChangeDirection directionConsumer, Direction direction) {
+                directionConsumer.rotateTo(this.direction);
                 return this;
             }
         };
-        final Consumer<Direction> consumer = mock(Consumer.class);
+        final Rover consumer = mock(Rover.class);
         final Rotate underTest = new Rotate(orientation);
 
         // When
-        final Rotate result = underTest.modifyDirection(consumer, direction1);
+        final Rotate result = underTest.modify(consumer, direction1, coordinate);
 
         // Then
-        verify(consumer).accept(direction2);
+        verify(consumer).rotateTo(direction2);
         verifyNoMoreInteractions(consumer);
 
         assertThat(result).is(CloneCondition.clone(orientation));
@@ -66,7 +68,7 @@ public class RotateTest {
         }
 
         @Override
-        public Orientation giveNextDirection(Consumer<Direction> directionConsumer, Direction direction) {
+        public Orientation giveNextDirection(CanChangeDirection directionConsumer, Direction direction) {
             throw new NotImplementedException();
         }
     }

@@ -1,12 +1,11 @@
 package kata.rover.command;
 
+import kata.rover.CanChangeDirection;
 import kata.rover.Direction;
 import org.assertj.core.api.Condition;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.testng.annotations.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -19,16 +18,16 @@ public class OrientationRightTest {
         // Given
         final OrientationRight underTest = new OrientationRight();
         final Direction directionResult = mock(Direction.class);
-        final Consumer<Direction> directionConsumer = mock(Consumer.class);
+        final CanChangeDirection directionConsumer = mock(CanChangeDirection.class);
         final Direction directionSrc = new Direction() {
             @Override
-            public Direction giveMeDirectionOnLeftRotation(Consumer<Direction> directionConsumer) {
+            public Direction giveMeDirectionOnLeftRotation(CanChangeDirection directionConsumer) {
                 throw new NotImplementedException();
             }
 
             @Override
-            public Direction giveMeDirectionOnRightRotation(Consumer<Direction> directionConsumer) {
-                directionConsumer.accept(directionResult);
+            public Direction giveMeDirectionOnRightRotation(CanChangeDirection directionConsumer) {
+                directionConsumer.rotateTo(directionResult);
                 return this;
             }
         };
@@ -37,7 +36,7 @@ public class OrientationRightTest {
         final OrientationRight result = underTest.giveNextDirection(directionConsumer, directionSrc);
 
         // Then
-        verify(directionConsumer).accept(directionResult);
+        verify(directionConsumer).rotateTo(directionResult);
         assertThat(result).is(new CloneCondition());
     }
 
@@ -45,7 +44,7 @@ public class OrientationRightTest {
     public void testGiveNextDirection_withoutResponseFromDirection() {
         // Given
         final OrientationRight underTest = new OrientationRight();
-        final Consumer<Direction> directionConsumer = mock(Consumer.class);
+        final CanChangeDirection directionConsumer = mock(CanChangeDirection.class);
         final Direction directionSrc = mock(Direction.class);
 
         // When

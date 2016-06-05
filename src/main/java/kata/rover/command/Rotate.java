@@ -1,8 +1,9 @@
 package kata.rover.command;
 
+import kata.rover.CanChangeDirection;
+import kata.rover.CanChangePosition;
+import kata.rover.Coordinate;
 import kata.rover.Direction;
-
-import java.util.function.Consumer;
 
 public class Rotate implements Command {
 
@@ -23,11 +24,12 @@ public class Rotate implements Command {
      *
      * @param directionConsumer consumer to give the new direction.
      * @param direction         the direction onto execute command.
+     * @param coordinate        the coordinate onto execute command.
      *
      * @return himself or equivalent.
      */
     @Override
-    public Rotate modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
+    public <T extends CanChangeDirection & CanChangePosition> Rotate modify(T directionConsumer, Direction direction, Coordinate coordinate) {
         orientation.giveNextDirection(directionConsumer, direction);
         return this;
     }

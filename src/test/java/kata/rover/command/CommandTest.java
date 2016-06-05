@@ -1,10 +1,10 @@
 package kata.rover.command;
 
+import kata.rover.CanChangeDirection;
+import kata.rover.CanChangePosition;
 import kata.rover.Coordinate;
 import kata.rover.Direction;
 import org.testng.annotations.Test;
-
-import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -14,39 +14,26 @@ public class CommandTest {
 
 
     @Test
-    public void testModifyDirection() {
+    public void testModify() {
         // Given
         final Direction direction = mock(Direction.class);
-        final Consumer<Direction> consumer = mock(Consumer.class);
+        final Coordinate coordinate = mock(Coordinate.class);
+        final CanChangeDirectionPosition consumer = mock(CanChangeDirectionPosition.class);
         final Command underTest = new Command() {
         };
 
         // When
-        final Command result = underTest.modifyDirection(consumer, direction);
+        final Command result = underTest.modify(consumer, direction, coordinate);
 
         // Then
         verifyNoMoreInteractions(direction);
         verifyNoMoreInteractions(consumer);
+        verifyNoMoreInteractions(coordinate);
 
         assertThat(result).isSameAs(underTest);
     }
 
-    @Test
-    public void testModifyCoordinate() {
-        // Given
-        final Coordinate coordinate = mock(Coordinate.class);
-        final Orientation orientation = mock(Orientation.class);
-        final Consumer<Coordinate> consumer = mock(Consumer.class);
-        final Command underTest = new Command() {
-        };
+    private interface CanChangeDirectionPosition extends CanChangeDirection, CanChangePosition {
 
-        // When
-        final Command result = underTest.modifyCoordinate(consumer, coordinate);
-
-        // Then
-        verifyNoMoreInteractions(orientation);
-        verifyNoMoreInteractions(consumer);
-
-        assertThat(result).isSameAs(underTest);
     }
 }

@@ -26,7 +26,7 @@ public class RoverTest {
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute_rotate() {
         // Given
         final Direction direction = mock(Direction.class), newDirection = mock(Direction.class);
         final Coordinate coordinate = mock(Coordinate.class);
@@ -35,8 +35,8 @@ public class RoverTest {
         final Consumer<Rover> consumer = mock(Consumer.class);
         final Command command = new Command() {
             @Override
-            public Command modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
-                directionConsumer.accept(newDirection);
+            public Command modify(CanChangeDirection directionConsumer, Direction direction, Coordinate coordinate1) {
+                directionConsumer.rotateTo(newDirection);
                 return this;
             }
         };
@@ -46,7 +46,7 @@ public class RoverTest {
 
         // Then
         verify(consumer).accept(roverCaptor.capture());
-        assertThat(roverCaptor.getValue()).is(new CloneCondition(newDirection, coordinate));
+        assertThat(roverCaptor.getValue()).is(new CloneCondition(newDirection, coordinate, "roverConsumer"));
         verifyNoMoreInteractions(consumer);
 
         assertThat(result).is(new CloneCondition(direction, coordinate));
@@ -58,15 +58,17 @@ public class RoverTest {
 
         private Direction direction;
         private Coordinate coordinate;
+        private String[] excludeFields;
 
-        CloneCondition(Direction direction, Coordinate coordinate) {
+        CloneCondition(Direction direction, Coordinate coordinate, String... excludeFields) {
             this.direction = direction;
             this.coordinate = coordinate;
+            this.excludeFields = excludeFields;
         }
 
         @Override
         public boolean matches(Rover value) {
-            return new ReflectionEquals(value).matches(new Rover(direction, coordinate));
+            return new ReflectionEquals(value, excludeFields).matches(new Rover(direction, coordinate));
         }
     }
 }

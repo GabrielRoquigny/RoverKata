@@ -1,9 +1,7 @@
 package kata.rover;
 
-import java.util.function.Consumer;
-
 public interface Direction {
-    Direction giveMeDirectionOnLeftRotation(Consumer<Direction> directionConsumer);
+    Direction giveMeDirectionOnLeftRotation(CanChangeDirection directionConsumer);
 
-    Direction giveMeDirectionOnRightRotation(Consumer<Direction> directionConsumer);
+    Direction giveMeDirectionOnRightRotation(CanChangeDirection directionConsumer);
 }

@@ -1,32 +1,21 @@
 package kata.rover.command;
 
+import kata.rover.CanChangeDirection;
+import kata.rover.CanChangePosition;
 import kata.rover.Coordinate;
 import kata.rover.Direction;
 
-import java.util.function.Consumer;
-
 public interface Command {
     /**
-     * Give the new direction after executing command.
+     * Give the new state after executing command.
      *
-     * @param directionConsumer consumer to give the new direction.
-     * @param direction         the direction onto execute command.
-     *
-     * @return himself or equivalent.
-     */
-    default Command modifyDirection(Consumer<Direction> directionConsumer, Direction direction) {
-        return this;
-    }
-
-    /**
-     * Give the new coordinate after executing command.
-     *
-     * @param coordinateConsumer consumer to give the new coordinate.
-     * @param coordinate         the coordinate onto execute command.
+     * @param stateConsumer consumer to give the new state.
+     * @param direction     the direction onto execute command.
+     * @param coordinate    the coordinate onto execute command.
      *
      * @return himself or equivalent.
      */
-    default Command modifyCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
+    default <T extends CanChangeDirection & CanChangePosition> Command modify(T stateConsumer, Direction direction, Coordinate coordinate) {
         return this;
     }
 }

@@ -1,7 +1,5 @@
 package kata.rover;
 
-import java.util.function.Consumer;
-
 public enum CardinalDirection implements Direction {
     NORTH("WEST", "EAST"),
     SOUTH("EAST", "WEST"),
@@ -17,14 +15,14 @@ public enum CardinalDirection implements Direction {
     }
 
     @Override
-    public CardinalDirection giveMeDirectionOnLeftRotation(Consumer<Direction> directionConsumer) {
-        directionConsumer.accept(valueOf(left));
+    public CardinalDirection giveMeDirectionOnLeftRotation(CanChangeDirection directionConsumer) {
+        directionConsumer.rotateTo(valueOf(left));
         return this;
     }
 
     @Override
-    public CardinalDirection giveMeDirectionOnRightRotation(Consumer<Direction> directionConsumer) {
-        directionConsumer.accept(valueOf(right));
+    public CardinalDirection giveMeDirectionOnRightRotation(CanChangeDirection directionConsumer) {
+        directionConsumer.rotateTo(valueOf(right));
         return this;
     }
 }
