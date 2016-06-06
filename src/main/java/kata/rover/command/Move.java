@@ -7,8 +7,11 @@ import kata.rover.Direction;
 
 public class Move implements Command {
 
+    private MoveOrientation moveOrientation;
+
     public Move(MoveOrientation moveOrientation) {
         super();
+        this.moveOrientation = moveOrientation;
     }
 
     /**
@@ -22,6 +25,7 @@ public class Move implements Command {
      */
     @Override
     public <T extends CanChangeDirection & CanChangePosition> Move modify(T coordinateConsumer, Direction direction, Coordinate coordinate) {
-        return null;
+        moveOrientation.modify(coordinateConsumer, direction, coordinate);
+        return this;
     }
 }

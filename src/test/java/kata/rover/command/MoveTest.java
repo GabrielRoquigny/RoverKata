@@ -22,7 +22,7 @@ public class MoveTest {
         final Coordinate coordinate = mock(Coordinate.class), newCoordinate = mock(Coordinate.class);
         final MoveOrientation moveOrientation = new MoveOrientation() {
             @Override
-            public MoveOrientation modify(CanChangePosition coordinateConsumer, Coordinate coordinate) {
+            public MoveOrientation modify(CanChangePosition coordinateConsumer, Direction direction, Coordinate coordinate) {
                 coordinateConsumer.move(newCoordinate);
                 return this;
             }
