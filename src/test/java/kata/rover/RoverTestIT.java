@@ -1,5 +1,7 @@
 package kata.rover;
 
+import kata.rover.command.Move;
+import kata.rover.command.MoveForward;
 import kata.rover.command.OrientationLeft;
 import kata.rover.command.OrientationRight;
 import kata.rover.command.Rotate;
@@ -16,7 +18,6 @@ import java.util.function.Consumer;
 import static kata.rover.CardinalDirection.EAST;
 import static kata.rover.CardinalDirection.NORTH;
 import static kata.rover.CardinalDirection.SOUTH;
-import static kata.rover.CardinalDirection.WEST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -63,6 +64,24 @@ public class RoverTestIT {
         // Then
         verify(consumer).accept(roverCaptor.capture());
         assertThat(roverCaptor.getValue()).is(new CloneCondition(SOUTH, coordinate, "roverConsumer"));
+        verifyNoMoreInteractions(consumer);
+    }
+
+    @Test
+    public void testMoveForward() {
+        // Given
+        final Move command = new Move(new MoveForward());
+        final Consumer<Rover> consumer = mock(Consumer.class);
+        final Coordinate coordinate = new Coordinate(0, 0);
+        final Coordinate newCoordinate = new Coordinate(1, 0);
+        final Rover roverTest = new Rover(EAST, coordinate);
+
+        // When
+        roverTest.execute(consumer, command);
+
+        // Then
+        verify(consumer).accept(roverCaptor.capture());
+        assertThat(roverCaptor.getValue()).is(new CloneCondition(EAST, newCoordinate, "roverConsumer"));
         verifyNoMoreInteractions(consumer);
     }
 

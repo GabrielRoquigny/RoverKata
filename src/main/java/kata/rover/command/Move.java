@@ -6,6 +6,11 @@ import kata.rover.Coordinate;
 import kata.rover.Direction;
 
 public class Move implements Command {
+
+    public Move(MoveOrientation moveOrientation) {
+        super();
+    }
+
     /**
      * Give the new state after executing command.
      *
