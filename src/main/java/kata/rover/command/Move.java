@@ -21,7 +21,7 @@ public class Move implements Command {
      * @return himself or equivalent.
      */
     @Override
-    public <T extends CanChangeDirection & CanChangePosition> Command modify(T coordinateConsumer, Direction direction, Coordinate coordinate) {
+    public <T extends CanChangeDirection & CanChangePosition> Move modify(T coordinateConsumer, Direction direction, Coordinate coordinate) {
         return null;
     }
 }

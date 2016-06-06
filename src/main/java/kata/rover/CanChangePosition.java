@@ -1,5 +1,5 @@
 package kata.rover;
 
 public interface CanChangePosition {
-    CanChangeDirection move();
+    CanChangeDirection move(Coordinate coordinate);
 }

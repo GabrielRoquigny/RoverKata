@@ -6,7 +6,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MoveForward implements MoveOrientation {
     @Override
-    public Command modify(CanChangePosition coordinateConsumer, Coordinate coordinate) {
+    public MoveForward modify(CanChangePosition coordinateConsumer, Coordinate coordinate) {
         throw new NotImplementedException();
     }
 }

@@ -1,6 +1,7 @@
 package kata.rover;
 
 import kata.rover.command.Command;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.PrintStream;
 import java.util.function.Consumer;
@@ -45,14 +46,14 @@ public class Rover implements CanChangeDirection, CanChangePosition {
         return clone;
     }
 
-    @Override
-    public Rover move() {
-        throw new RuntimeException();
-    }
-
     private Rover createClone() {
         final Rover clone = new Rover(direction, coordinate);
         clone.roverConsumer = roverConsumer;
         return clone;
+    }
+
+    @Override
+    public CanChangeDirection move(Coordinate coordinate) {
+        throw new NotImplementedException();
     }
 }
