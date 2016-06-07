@@ -1,6 +1,9 @@
 package kata.rover;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class Vector {
     private final Integer x, y;
@@ -9,6 +12,10 @@ public class Vector {
         super();
         this.x = x;
         this.y = y;
+    }
+
+    public Vector applyOnCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
+        throw new NotImplementedException();
     }
 
     @Override
