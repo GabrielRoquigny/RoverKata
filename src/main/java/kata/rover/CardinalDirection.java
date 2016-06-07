@@ -1,5 +1,9 @@
 package kata.rover;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.function.Consumer;
+
 public enum CardinalDirection implements Direction {
     NORTH("WEST", "EAST"),
     SOUTH("EAST", "WEST"),
@@ -25,4 +29,11 @@ public enum CardinalDirection implements Direction {
         directionConsumer.rotateTo(valueOf(right));
         return this;
     }
+
+    @Override
+    public Direction giveMeVectorForward(Consumer<Vector> vectorConsumer) {
+        throw new NotImplementedException();
+    }
+
+
 }

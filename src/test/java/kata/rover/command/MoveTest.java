@@ -4,6 +4,7 @@ import kata.rover.CanChangeDirection;
 import kata.rover.CanChangePosition;
 import kata.rover.Coordinate;
 import kata.rover.Direction;
+import kata.rover.Vector;
 import org.assertj.core.api.Condition;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.testng.annotations.Test;
@@ -19,11 +20,12 @@ public class MoveTest {
         // Given
         final CanChangeDirectionPosition canChangeDirectionPosition = mock(CanChangeDirectionPosition.class);
         final Direction direction = mock(Direction.class);
-        final Coordinate coordinate = mock(Coordinate.class), newCoordinate = mock(Coordinate.class);
+        final Coordinate coordinate = mock(Coordinate.class);
+        final Vector vector = mock(Vector.class);
         final MoveOrientation moveOrientation = new MoveOrientation() {
             @Override
             public MoveOrientation modify(CanChangePosition coordinateConsumer, Direction direction, Coordinate coordinate) {
-                coordinateConsumer.move(newCoordinate);
+                coordinateConsumer.move(vector);
                 return this;
             }
         };
@@ -33,7 +35,7 @@ public class MoveTest {
         final Move result = underTest.modify(canChangeDirectionPosition, direction, coordinate);
 
         // Then
-        verify(canChangeDirectionPosition).move(newCoordinate);
+        verify(canChangeDirectionPosition).move(vector);
         verifyNoMoreInteractions(canChangeDirectionPosition);
         assertThat(result).is(new CloneCondition(moveOrientation));
     }

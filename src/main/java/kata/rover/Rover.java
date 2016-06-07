@@ -53,7 +53,7 @@ public class Rover implements CanChangeDirection, CanChangePosition {
     }
 
     @Override
-    public CanChangeDirection move(Coordinate coordinate) {
+    public Rover move(Vector vector) {
         throw new NotImplementedException();
     }
 }
