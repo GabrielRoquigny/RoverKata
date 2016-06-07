@@ -44,6 +44,23 @@ public class CoordinateTest {
         assertThat(result).is(new CloneCondition(x, y));
     }
 
+
+    @Test
+    public void testEquals() {
+        assertThat(new Coordinate(0, 0)).isEqualTo(new Coordinate(0, 0));
+        assertThat(new Coordinate(0, 0)).isNotEqualTo(new Coordinate(1, 0));
+        assertThat(new Coordinate(0, 0)).isNotEqualTo(new Coordinate(1, 1));
+        assertThat(new Coordinate(0, 0)).isNotEqualTo(new Coordinate(0, 1));
+    }
+
+    @Test
+    public void testHashCode() {
+        assertThat(new Coordinate(0, 0).hashCode()).isEqualTo(new Coordinate(0, 0).hashCode());
+        assertThat(new Coordinate(0, 0).hashCode()).isNotEqualTo(new Coordinate(1, 0).hashCode());
+        assertThat(new Coordinate(0, 0).hashCode()).isNotEqualTo(new Coordinate(1, 1).hashCode());
+        assertThat(new Coordinate(0, 0).hashCode()).isNotEqualTo(new Coordinate(0, 1).hashCode());
+    }
+
     private static class CloneCondition extends Condition<Coordinate> {
         private Integer x, y;
 

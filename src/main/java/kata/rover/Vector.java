@@ -1,12 +1,11 @@
 package kata.rover;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public class Vector {
     private final Integer x, y;
+    private Integer cx, cy;
 
     public Vector(Integer x, Integer y) {
         super();
@@ -15,7 +14,11 @@ public class Vector {
     }
 
     public Vector applyOnCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
-        throw new NotImplementedException();
+        Vector clone = new Vector(x, y);
+        coordinate.giveMeX(x -> clone.cx = x);
+        coordinate.giveMeY(y -> clone.cy = y);
+        coordinateConsumer.accept(new Coordinate(clone.cx + x, clone.cy + y));
+        return this;
     }
 
     @Override
