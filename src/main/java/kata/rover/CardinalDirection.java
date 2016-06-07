@@ -1,21 +1,21 @@
 package kata.rover;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.function.Consumer;
 
 public enum CardinalDirection implements Direction {
-    NORTH("WEST", "EAST"),
-    SOUTH("EAST", "WEST"),
-    EAST("NORTH", "SOUTH"),
-    WEST("SOUTH", "NORTH");
+    NORTH("WEST", "EAST", 0, 1),
+    SOUTH("EAST", "WEST", 0, -1),
+    EAST("NORTH", "SOUTH", 1, 0),
+    WEST("SOUTH", "NORTH", -1, 0);
 
     private String left;
     private String right;
+    private Vector vector;
 
-    CardinalDirection(String left, String right) {
+    CardinalDirection(String left, String right, Integer x, Integer y) {
         this.left = left;
         this.right = right;
+        this.vector = new Vector(x, y);
     }
 
     @Override
@@ -31,8 +31,9 @@ public enum CardinalDirection implements Direction {
     }
 
     @Override
-    public Direction giveMeVectorForward(Consumer<Vector> vectorConsumer) {
-        throw new NotImplementedException();
+    public CardinalDirection giveMeVectorForward(Consumer<Vector> vectorConsumer) {
+        vectorConsumer.accept(vector);
+        return this;
     }
 
 
