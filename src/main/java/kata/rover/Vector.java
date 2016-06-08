@@ -1,7 +1,6 @@
 package kata.rover;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class Vector {
     private final Integer x, y;
@@ -13,11 +12,11 @@ public class Vector {
         this.y = y;
     }
 
-    public Vector applyOnCoordinate(Consumer<Coordinate> coordinateConsumer, Coordinate coordinate) {
+    public Vector applyOnCoordinate(CanChangePosition positionConsumer, Coordinate coordinate) {
         Vector clone = new Vector(x, y);
         coordinate.giveMeX(x -> clone.cx = x);
         coordinate.giveMeY(y -> clone.cy = y);
-        coordinateConsumer.accept(new Coordinate(clone.cx + x, clone.cy + y));
+        positionConsumer.position(new Coordinate(clone.cx + x, clone.cy + y));
         return this;
     }
 

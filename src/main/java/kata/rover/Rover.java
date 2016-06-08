@@ -1,7 +1,6 @@
 package kata.rover;
 
 import kata.rover.command.Command;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.PrintStream;
 import java.util.function.Consumer;
@@ -10,7 +9,7 @@ public class Rover implements CanChangeDirection, CanChangePosition {
 
     private Consumer<Rover> roverConsumer;
     private Direction direction;
-    private final Coordinate coordinate;
+    private Coordinate coordinate;
 
     public Rover(Direction direction, Coordinate coordinate) {
         super();
@@ -54,6 +53,17 @@ public class Rover implements CanChangeDirection, CanChangePosition {
 
     @Override
     public Rover move(Vector vector) {
-        throw new NotImplementedException();
+        vector.applyOnCoordinate(this, coordinate);
+        return this;
+    }
+
+    @Override
+    public CanChangePosition position(Coordinate coordinate) {
+        final Rover clone = createClone();
+        this.coordinate = coordinate;
+        if (null != roverConsumer) {
+            this.roverConsumer.accept(this);
+        }
+        return clone;
     }
 }

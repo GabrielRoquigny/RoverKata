@@ -15,7 +15,7 @@ public class VectorTest {
     @Test
     public void testApplyOnCoordinate() {
         // Given
-        final Consumer<Coordinate> consumer = mock(Consumer.class);
+        final CanChangePosition consumer = mock(CanChangePosition.class);
         Integer cx = 0, cy = -1, vx = 8, vy = -9;
         final Coordinate coordinate = new Coordinate(cx, cy) {
             @Override
@@ -36,7 +36,7 @@ public class VectorTest {
         final Vector result = underTest.applyOnCoordinate(consumer, coordinate);
 
         // Then
-        verify(consumer).accept(new Coordinate(cx + vx, cy + vy));
+        verify(consumer).position(new Coordinate(cx + vx, cy + vy));
         verifyNoMoreInteractions(consumer);
 
         assertThat(result).is(new CloneCondition(vx, vy));

@@ -53,6 +53,53 @@ public class RoverTest {
 
     }
 
+    @Test
+    public void testExecute_position() {
+        // Given
+        final Direction direction = mock(Direction.class);
+        final Coordinate coordinate = mock(Coordinate.class), newCoordinate = mock(Coordinate.class);
+        final Rover underTest = new Rover(direction, coordinate);
+
+        final Consumer<Rover> consumer = mock(Consumer.class);
+        final Command command = new Command() {
+            @Override
+            public Command modify(CanChangeDirection positionConsumer, Direction direction, Coordinate coordinate1) {
+                ((CanChangePosition) positionConsumer).position(newCoordinate);
+                return this;
+            }
+        };
+
+        // When
+        final Rover result = underTest.execute(consumer, command);
+
+        // Then
+        verify(consumer).accept(roverCaptor.capture());
+        assertThat(roverCaptor.getValue()).is(new CloneCondition(direction, newCoordinate, "roverConsumer"));
+        verifyNoMoreInteractions(consumer);
+
+        assertThat(result).is(new CloneCondition(direction, coordinate));
+
+    }
+
+    @Test
+    public void testMove() {
+        // Given
+        final Coordinate coordinate = mock(Coordinate.class);
+        final Direction direction = mock(Direction.class);
+        final Vector vector = mock(Vector.class);
+
+        final Rover underTest = new Rover(direction, coordinate);
+
+        // When
+        final Rover result = underTest.move(vector);
+
+        // Then
+        verify(vector).applyOnCoordinate(underTest, coordinate);
+        verifyNoMoreInteractions(vector);
+
+        assertThat(result).is(new CloneCondition(direction, coordinate));
+    }
+
 
     private static class CloneCondition extends Condition<Rover> {
 
@@ -70,5 +117,9 @@ public class RoverTest {
         public boolean matches(Rover value) {
             return new ReflectionEquals(value, excludeFields).matches(new Rover(direction, coordinate));
         }
+    }
+
+    private interface CanChangeDirectionPosition extends CanChangeDirection, CanChangePosition {
+
     }
 }
