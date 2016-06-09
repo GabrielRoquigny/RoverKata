@@ -10,12 +10,14 @@ public enum CardinalDirection implements Direction {
 
     private String left;
     private String right;
-    private Vector vector;
+    private Vector vectorForward;
+    private Vector vectorBackward;
 
     CardinalDirection(String left, String right, Integer x, Integer y) {
         this.left = left;
         this.right = right;
-        this.vector = new Vector(x, y);
+        this.vectorForward = new Vector(x, y);
+        this.vectorBackward = new Vector(-x, -y);
     }
 
     @Override
@@ -32,7 +34,13 @@ public enum CardinalDirection implements Direction {
 
     @Override
     public CardinalDirection giveMeVectorForward(Consumer<Vector> vectorConsumer) {
-        vectorConsumer.accept(vector);
+        vectorConsumer.accept(vectorForward);
+        return this;
+    }
+
+    @Override
+    public Direction giveMeVectorBackward(Consumer<Vector> vectorConsumer) {
+        vectorConsumer.accept(vectorBackward);
         return this;
     }
 

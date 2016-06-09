@@ -1,9 +1,10 @@
 package kata.rover;
 
+import java.io.PrintStream;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class Coordinate {
+public class Coordinate implements CanDisplay {
     private Integer x, y;
 
     public Coordinate(Integer x, Integer y) {
@@ -19,6 +20,15 @@ public class Coordinate {
 
     public Coordinate giveMeY(Consumer<Integer> consumer) {
         consumer.accept(this.y);
+        return this;
+    }
+
+    @Override
+    public Coordinate display(PrintStream printStream) {
+        printStream.append("x:");
+        printStream.print(x);
+        printStream.append(";y:");
+        printStream.print(y);
         return this;
     }
 

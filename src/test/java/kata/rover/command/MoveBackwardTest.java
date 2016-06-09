@@ -15,23 +15,23 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-public class MoveForwardTest {
+public class MoveBackwardTest {
     @Test
     public void testModify() {
         // Given
         final Vector vector = mock(Vector.class);
         final CanChangePosition canChangePosition = mock(CanChangePosition.class);
         final Direction direction = new Direction() {
-            public Direction giveMeVectorForward(Consumer<Vector> vectorConsumer) {
+            public Direction giveMeVectorBackward(Consumer<Vector> vectorConsumer) {
                 vectorConsumer.accept(vector);
                 return this;
             }
         };
         final Coordinate coordinate = mock(Coordinate.class);
-        final MoveForward underTest = new MoveForward();
+        final MoveBackward underTest = new MoveBackward();
 
         // When
-        final MoveForward result = underTest.modify(canChangePosition, direction, coordinate);
+        final MoveBackward result = underTest.modify(canChangePosition, direction, coordinate);
 
         // Then
         verify(canChangePosition).move(vector);
@@ -40,10 +40,10 @@ public class MoveForwardTest {
         assertThat(result).is(new CloneCondition());
     }
 
-    private static class CloneCondition extends Condition<MoveForward> {
+    private static class CloneCondition extends Condition<MoveBackward> {
         @Override
-        public boolean matches(MoveForward value) {
-            return new ReflectionEquals(value).matches(new MoveForward());
+        public boolean matches(MoveBackward value) {
+            return new ReflectionEquals(value).matches(new MoveBackward());
         }
     }
 

@@ -2,13 +2,9 @@ package kata.rover.command;
 
 import kata.rover.CanChangeDirection;
 import kata.rover.Direction;
-import kata.rover.Vector;
 import org.assertj.core.api.Condition;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.testng.annotations.Test;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -23,17 +19,9 @@ public class OrientationRightTest {
         final Direction directionResult = mock(Direction.class);
         final CanChangeDirection directionConsumer = mock(CanChangeDirection.class);
         final Direction directionSrc = new Direction() {
-            public Direction giveMeDirectionOnLeftRotation(CanChangeDirection directionConsumer) {
-                throw new NotImplementedException();
-            }
-
             public Direction giveMeDirectionOnRightRotation(CanChangeDirection directionConsumer) {
                 directionConsumer.rotateTo(directionResult);
                 return this;
-            }
-
-            public Direction giveMeVectorForward(Consumer<Vector> vectorConsumer) {
-                throw new NotImplementedException();
             }
         };
 

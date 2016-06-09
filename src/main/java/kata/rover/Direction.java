@@ -1,11 +1,23 @@
 package kata.rover;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.function.Consumer;
 
 public interface Direction {
-    Direction giveMeDirectionOnLeftRotation(CanChangeDirection directionConsumer);
+    default Direction giveMeDirectionOnLeftRotation(CanChangeDirection directionConsumer) {
+        throw new NotImplementedException();
+    }
 
-    Direction giveMeDirectionOnRightRotation(CanChangeDirection directionConsumer);
+    default Direction giveMeDirectionOnRightRotation(CanChangeDirection directionConsumer) {
+        throw new NotImplementedException();
+    }
 
-    Direction giveMeVectorForward(Consumer<Vector> vectorConsumer);
+    default Direction giveMeVectorForward(Consumer<Vector> vectorConsumer) {
+        throw new NotImplementedException();
+    }
+
+    default Direction giveMeVectorBackward(Consumer<Vector> vectorConsumer) {
+        throw new NotImplementedException();
+    }
 }

@@ -5,7 +5,7 @@ import kata.rover.command.Command;
 import java.io.PrintStream;
 import java.util.function.Consumer;
 
-public class Rover implements CanChangeDirection, CanChangePosition {
+public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay {
 
     private Consumer<Rover> roverConsumer;
     private Direction direction;
@@ -33,7 +33,11 @@ public class Rover implements CanChangeDirection, CanChangePosition {
     }
 
     public Rover display(PrintStream printStream) {
-        printStream.println(direction);
+        printStream.append("direction ");
+        printStream.print(direction);
+        printStream.append(" coordinate (");
+        coordinate.display(printStream);
+        printStream.append(")");
         return this;
     }
 
