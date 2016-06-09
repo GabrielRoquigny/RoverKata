@@ -1,13 +1,14 @@
 package kata.rover.command;
 
-import kata.rover.CanChangePosition;
-import kata.rover.Coordinate;
 import kata.rover.Direction;
+import kata.rover.Vector;
 
-public class MoveForward implements MoveOrientation {
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+public class MoveForward extends MoveAbstractWard<MoveForward> {
     @Override
-    public MoveForward modify(CanChangePosition vectorConsumer, Direction direction, Coordinate coordinate) {
-        direction.giveMeVectorForward(vectorConsumer::move);
-        return this;
+    protected Function<Consumer<Vector>, Direction> getFunction(Direction direction) {
+        return direction::giveMeVectorForward;
     }
 }
