@@ -1,6 +1,7 @@
 package kata.rover;
 
 import kata.rover.command.Command;
+import kata.rover.command.RoverListener;
 import org.assertj.core.api.Condition;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -8,8 +9,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -32,7 +31,7 @@ public class RoverTest {
         final Coordinate coordinate = mock(Coordinate.class);
         final Rover underTest = new Rover(direction, coordinate);
 
-        final Consumer<Rover> consumer = mock(Consumer.class);
+        final RoverListener consumer = mock(RoverListener.class);
         final Command command = new Command() {
             @Override
             public Command modify(CanChangeDirection directionConsumer, Direction direction, Coordinate coordinate1) {
@@ -45,7 +44,7 @@ public class RoverTest {
         final Rover result = underTest.execute(consumer, command);
 
         // Then
-        verify(consumer).accept(roverCaptor.capture());
+        verify(consumer).roverChange(roverCaptor.capture());
         assertThat(roverCaptor.getValue()).is(new CloneCondition(newDirection, coordinate, "roverConsumer"));
         verifyNoMoreInteractions(consumer);
 
@@ -60,7 +59,7 @@ public class RoverTest {
         final Coordinate coordinate = mock(Coordinate.class), newCoordinate = mock(Coordinate.class);
         final Rover underTest = new Rover(direction, coordinate);
 
-        final Consumer<Rover> consumer = mock(Consumer.class);
+        final RoverListener consumer = mock(RoverListener.class);
         final Command command = new Command() {
             @Override
             public Command modify(CanChangeDirection positionConsumer, Direction direction, Coordinate coordinate1) {
@@ -73,7 +72,7 @@ public class RoverTest {
         final Rover result = underTest.execute(consumer, command);
 
         // Then
-        verify(consumer).accept(roverCaptor.capture());
+        verify(consumer).roverChange(roverCaptor.capture());
         assertThat(roverCaptor.getValue()).is(new CloneCondition(direction, newCoordinate, "roverConsumer"));
         verifyNoMoreInteractions(consumer);
 

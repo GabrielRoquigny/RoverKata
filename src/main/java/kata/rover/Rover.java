@@ -1,13 +1,13 @@
 package kata.rover;
 
 import kata.rover.command.Command;
+import kata.rover.command.RoverListener;
 
 import java.io.PrintStream;
-import java.util.function.Consumer;
 
 public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay {
 
-    private Consumer<Rover> roverConsumer;
+    private RoverListener roverConsumer;
     private Direction direction;
     private Coordinate coordinate;
 
@@ -25,7 +25,7 @@ public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay 
      *
      * @return this or equivalent.
      */
-    public Rover execute(Consumer<Rover> consumer, Command command) {
+    public Rover execute(RoverListener consumer, Command command) {
         final Rover clone = createClone();
         this.roverConsumer = consumer;
         command.modify(this, direction, coordinate);
@@ -45,7 +45,7 @@ public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay 
     public Rover rotateTo(Direction newDirection) {
         final Rover clone = createClone();
         this.direction = newDirection;
-        this.roverConsumer.accept(this);
+        this.roverConsumer.roverChange(this);
         return clone;
     }
 
@@ -66,7 +66,7 @@ public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay 
         final Rover clone = createClone();
         this.coordinate = coordinate;
         if (null != roverConsumer) {
-            this.roverConsumer.accept(this);
+            this.roverConsumer.roverChange(this);
         }
         return clone;
     }
