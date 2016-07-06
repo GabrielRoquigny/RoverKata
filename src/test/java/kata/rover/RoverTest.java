@@ -10,6 +10,8 @@ import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.PrintStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -77,6 +79,41 @@ public class RoverTest {
         verifyNoMoreInteractions(consumer);
 
         assertThat(result).is(new CloneCondition(direction, coordinate));
+    }
+
+    @Test
+    public void testPosition() {
+        // Given
+        final Coordinate coordinate = mock(Coordinate.class), newCoordinate = mock(Coordinate.class);
+        final Direction direction = mock(Direction.class);
+
+        final Rover underTest = new Rover(direction, coordinate);
+
+        // When
+        final Rover result = underTest.position(newCoordinate);
+
+        // Then
+        verifyNoMoreInteractions(direction, coordinate, newCoordinate);
+
+        assertThat(result).is(new CloneCondition(direction, coordinate));
+
+    }
+
+    @Test
+    public void testRotateTo() {
+        // Given
+        final Coordinate coordinate = mock(Coordinate.class);
+        final Direction direction = mock(Direction.class), newDirection = mock(Direction.class);
+
+        final Rover underTest = new Rover(direction, coordinate);
+
+        // When
+        final Rover result = underTest.rotateTo(newDirection);
+
+        // Then
+        verifyNoMoreInteractions(direction, coordinate, newDirection);
+
+        assertThat(result).is(new CloneCondition(direction, coordinate));
 
     }
 
@@ -99,6 +136,26 @@ public class RoverTest {
         assertThat(result).is(new CloneCondition(direction, coordinate));
     }
 
+    @Test
+    public void testDisplay() {
+        // Given
+        final Coordinate coordinate = mock(Coordinate.class);
+        final Direction direction = mock(Direction.class);
+
+        final Rover underTest = new Rover(direction, coordinate);
+        final PrintStream printStream = mock(PrintStream.class);
+
+        // When
+        final Rover result = underTest.display(printStream);
+
+        // Then
+        verify(printStream).append("direction ");
+        verify(printStream).print(direction);
+        verify(printStream).append(" coordinate (");
+        verify(coordinate).display(printStream);
+        verify(printStream).append(")");
+        assertThat(result).is(new CloneCondition(direction, coordinate));
+    }
 
     private static class CloneCondition extends Condition<Rover> {
 
