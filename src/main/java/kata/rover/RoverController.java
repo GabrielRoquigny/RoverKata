@@ -1,15 +1,19 @@
 package kata.rover;
 
 import kata.rover.command.CommandIterator;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import kata.rover.command.RoverListener;
 
 public class RoverController {
+    private Rover rover;
+
     public RoverController(Rover rover) {
-        throw new NotImplementedException();
+        super();
+        this.rover = rover;
     }
 
     public RoverController execute(CommandIterator commandIterator) {
-        throw new NotImplementedException();
+        commandIterator.executeOn(RoverListener.DEFAULT_LISTENER, rover);
+        return this;
     }
 
 }
