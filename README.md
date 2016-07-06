@@ -5,9 +5,9 @@ Try to program without any 'if' help us to program on [Open/closed principle](ht
 Your mission is to program a rover. 
 The rover need to move.
 A rover is on map with axis X and Y. 
-It have a oriantation : north, south, east and west.
-Exemple : 
-X = 0, Y = 0, Oriantation = North
+It have a orientation : north, south, east and west.
+Example : 
+X = 0, Y = 0, Orientation = North
 ```
 -------
 | | | |
@@ -18,7 +18,7 @@ X = 0, Y = 0, Oriantation = North
 
 
 ## Goals
-1. Rover need to rotate to the left. Exemple:*
+1. Rover need to rotate to the left. Example:*
 
   ```
   -------
@@ -27,7 +27,7 @@ X = 0, Y = 0, Oriantation = North
   |<| | |
   -------
   ```
-2. Rover need to rotate to the right. Exemple:
+2. Rover need to rotate to the right. Example:
 
   ```
   -------
@@ -36,7 +36,7 @@ X = 0, Y = 0, Oriantation = North
   |^| | |
   -------
   ```
-3. Rover can move. Exemple:
+3. Rover can move. Example:
 
   ```
   -------
@@ -45,7 +45,7 @@ X = 0, Y = 0, Oriantation = North
   | | | |
   -------
   ```
-4. Rover can move back. Exemple:
+4. Rover can move back. Example:
 
   ```
   -------
@@ -54,7 +54,7 @@ X = 0, Y = 0, Oriantation = North
   |^| | |
   -------
   ```
-5. Rover can do 1,2,3 and 4 multiple time. Exemple:
+5. Rover can do 1,2,3 and 4 multiple time. Example:
 
   ```
   -------
@@ -63,7 +63,7 @@ X = 0, Y = 0, Oriantation = North
   |>| | |
   -------
   ```
-6. Rove can move to left. Exemple:
+6. Rove can move to left. Example:
 
   ```
   -------
@@ -72,7 +72,7 @@ X = 0, Y = 0, Oriantation = North
   | | | |
   -------
   ```
-7. Rove can move to right. Exemple:
+7. Rove can move to right. Example:
 
   ```
   -------

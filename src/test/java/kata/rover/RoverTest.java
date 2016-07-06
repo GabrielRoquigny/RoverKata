@@ -117,8 +117,4 @@ public class RoverTest {
             return new ReflectionEquals(value, excludeFields).matches(new Rover(direction, coordinate));
         }
     }
-
-    private interface CanChangeDirectionPosition extends CanChangeDirection, CanChangePosition {
-
-    }
 }
