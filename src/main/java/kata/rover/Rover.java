@@ -15,6 +15,7 @@ public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay 
         super();
         this.coordinate = coordinate;
         this.direction = direction;
+        this.roverConsumer = RoverListener.DEFAULT_LISTENER;
     }
 
     /**
@@ -62,12 +63,10 @@ public class Rover implements CanChangeDirection, CanChangePosition, CanDisplay 
     }
 
     @Override
-    public CanChangePosition position(Coordinate coordinate) {
+    public Rover position(Coordinate coordinate) {
         final Rover clone = createClone();
         this.coordinate = coordinate;
-        if (null != roverConsumer) {
-            this.roverConsumer.roverChange(this);
-        }
+        this.roverConsumer.roverChange(this);
         return clone;
     }
 }
